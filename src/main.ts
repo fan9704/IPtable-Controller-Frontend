@@ -10,11 +10,16 @@ import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router';
 
-/** Register Vue */
+import { createVuestic } from "vuestic-ui";
+import "vuestic-ui/css";
+
+
 const vue = createApp(App);
+
 vue.use(router);
 vue.use(store);
 vue.use(vuetify);
+// vue.use(createVuestic());
 
 // Run!
 router
