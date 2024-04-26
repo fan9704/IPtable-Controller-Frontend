@@ -1,5 +1,5 @@
 import request from "@/server/request";
-import type { NetworkRecord, NetworkRecordRequestDTO } from "@/interfaces/network";
+import type { NetworkRecordRequestDTO } from "@/interfaces/network";
 
 export function listNetworkRecords() {
 
