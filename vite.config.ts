@@ -50,14 +50,15 @@ export default defineConfig(({ command, mode }): UserConfig => {
         // Allow serving files from one level up to the project root
         allow: ['..'],
       },
-      // proxy: {
-      //   '/api': {
-      //     // target:  `http://${process.env.SERVER_IP}` || '127.0.0.1:8000',
-      //     target: `http://localhost:9990`,
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace('', '')
-      //   },
-      // }
+      proxy: {
+        '/api': {
+          // target:  `http://${process.env.SERVER_IP}` || '127.0.0.1:8000',
+          target: `http://127.0.0.1:9990`,
+          secure: false,
+          changeOrigin: true,
+          rewrite: (path) => path.replace('', '')
+        },
+      }
     },
 
     // Resolver
