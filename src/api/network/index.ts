@@ -1,14 +1,14 @@
 import request from "@/server/request";
-import type { NetworkRecordRequestDTO } from "@/interfaces/network";
+import type { NetworkRecord, NetworkRecordRequestDTO } from "@/interfaces/network";
 
-export function listNetworkRecords() {
+export function listNetworkRecords(): Promise<NetworkRecord[]> {
 
   return request({
-    url: "/nat/records",
+    url: "/nat/record",
     method: "get",
   });
 }
-export function getNetworkRecord(id: string) {
+export function getNetworkRecord(id: string): Promise<NetworkRecord> {
   return request({
     url: `/nat/record/${id}`,
     method: "get",
@@ -22,7 +22,7 @@ export function deleteNetworkRecord(id: string) {
   });
 }
 
-export function patchNetworkRecord(id: string, data: NetworkRecordRequestDTO) {
+export function patchNetworkRecord(id: string, data: NetworkRecordRequestDTO): Promise<NetworkRecord> {
   return request({
     url: `/nat/record/${id}`,
     method: "patch",
@@ -30,7 +30,7 @@ export function patchNetworkRecord(id: string, data: NetworkRecordRequestDTO) {
   });
 }
 
-export function createNetworkRecord(data: NetworkRecordRequestDTO) {
+export function createNetworkRecord(data: NetworkRecordRequestDTO): Promise<NetworkRecord> {
   return request({
     url: "/nat/record",
     method: "post",

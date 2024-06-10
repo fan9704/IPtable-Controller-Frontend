@@ -87,6 +87,18 @@ interface Storage {
   krdb?: boolean;
   disabled?: boolean;
 }
+interface Member {
+  type: string;
+  node: string;
+  vmid: number;
+  name: string;
+}
+
+interface Pool {
+  id: string;
+  comment: string;
+  members: Member[];
+}
 
 interface FirewallRule {
   log: string;
@@ -108,4 +120,4 @@ interface FirewallRule {
   enabled: boolean;
 }
 
-export { Node, QemuVM, Storage, FirewallRule }
+export { Node, QemuVM, Storage, FirewallRule, Pool }
