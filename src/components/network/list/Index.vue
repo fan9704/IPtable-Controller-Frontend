@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import FormComponent from '@/components/panel/form.vue';
-
 import { listNetworkRecords, deleteNetworkRecord } from '@/api/network';
 import type { NetworkRecord } from '@/interfaces/network';
 import { onMounted, ref } from 'vue';
 import router from '@/router';
+import swal from 'sweetalert2';
 
 const formShow = ref<boolean>(false);
 
 const networkRecords = ref<NetworkRecord[]>([]);
 
 const selectId = ref<string>('');
+
+const goEdit = (id: string) => {
+  router.push(`/network/${id}`);
+}
 
 const setId = async (id: string) => {
   selectId.value = id;
@@ -22,17 +25,12 @@ const closeForm = () => {
 }
 const findAllNetworkRecords = async () => {
   const res = await listNetworkRecords();
-  networkRecords.value = res.data;
+  networkRecords.value = res;
 };
 const deleteById = async (id: string) => {
   const res = await deleteNetworkRecord(id);
-  if (res.status == 200) {
-    alert('刪除成功');
-    findAllNetworkRecords();
-  }
-  else {
-    alert('刪除失敗');
-  }
+  swal.fire('刪除成功', "網路規則刪除成功", "success");
+  findAllNetworkRecords();
 };
 
 onMounted(() => {
@@ -60,7 +58,7 @@ onMounted(() => {
     <v-col cols="2">{{ record.protocol }}</v-col>
     <v-col cols="1">{{ record.note }}</v-col>
     <v-col cols="3">
-      <v-btn @click="setId(record.id)">
+      <v-btn @click="goEdit(record.id)">
         <v-icon>
           mdi-puzzle-edit
         </v-icon>
@@ -73,12 +71,6 @@ onMounted(() => {
     </v-col>
 
   </v-row>
-  <v-container v-show="formShow" id="form-container">
-    <v-btn class="justify-end" id="form-close-btn" @click="closeForm" prepend-icon="mdi-close-circle">
-      關閉</v-btn>
-
-    <FormComponent :id="selectId" />
-  </v-container>
 
   <v-container id="create-container">
     <v-btn id="create-btn" to="/new">新建規則</v-btn>

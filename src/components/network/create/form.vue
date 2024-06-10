@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { getNetworkRecord, patchNetworkRecord } from '@/api/network';
+import { createNetworkRecord } from '@/api/network';
 import type { NetworkRecord, NetworkRecordRequestDTO } from '@/interfaces/network';
-import { onUpdated, onMounted, ref, toRaw, type PropType } from 'vue';
+import { ref, toRaw } from 'vue';
+import swal from 'sweetalert2';
 
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
 const record = ref({
   outputIp: '',
   outputPort: '',
@@ -26,19 +21,7 @@ const oldRecord = ref({
   protocol: '',
   note: '',
 } as NetworkRecord);
-const findNetworkRecordById = async (id: string) => {
-  const res = await getNetworkRecord(id);
-  record.value = res.data;
-  oldRecord.value = res.data;
-};
-const resetForm = () => {
-  // console.log('reset');
-  // console.log(oldRecord.value);
-  record.value = toRaw(oldRecord.value);
-};
 const submitForm = async () => {
-  console.log('submit');
-  console.log(record.value);
   const formRecord = {
     outputIp: record.value.outputIp,
     outputPort: record.value.outputPort,
@@ -47,21 +30,13 @@ const submitForm = async () => {
     protocol: record.value.protocol,
     note: record.value.note,
   } as NetworkRecordRequestDTO;
-  const res = await patchNetworkRecord(props.id, formRecord)
-  if (res.status == 200) {
-    record.value = res.data;
-    alert('修改成功');
-  }
-  else {
-    alert('修改失敗');
-  }
-
+  const res = await createNetworkRecord(formRecord)
+  record.value = res;
+  swal.fire("新增成功", "網路規則資料已經同步更新", "success")
 };
-onUpdated(() => {
-  if (props.id != "") {
-    findNetworkRecordById(props.id);
-  }
-});
+const resetForm = () => {
+  record.value = toRaw(oldRecord.value);
+};
 </script>
 
 <template>
@@ -101,10 +76,9 @@ onUpdated(() => {
 </template>
 <style>
 #form {
-  /* margin: 0% 5%; */
   width: 100%;
-  padding: 2%;
+  padding: 3% 4%;
   background-color: #ffffff5e;
-  border-radius: 0px 0px 20px 20px;
+  border-radius: 20px;
 }
 </style>

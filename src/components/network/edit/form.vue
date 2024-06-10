@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { createNetworkRecord } from '@/api/network';
+import { getNetworkRecord, patchNetworkRecord } from '@/api/network';
 import type { NetworkRecord, NetworkRecordRequestDTO } from '@/interfaces/network';
-import { onUpdated, onMounted, ref, toRaw, type PropType } from 'vue';
+import { onUpdated, ref, toRaw } from 'vue';
+import swal from 'sweetalert2';
 
 
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
 const record = ref({
   outputIp: '',
   outputPort: '',
@@ -20,6 +27,14 @@ const oldRecord = ref({
   protocol: '',
   note: '',
 } as NetworkRecord);
+const findNetworkRecordById = async (id: string) => {
+  const res = await getNetworkRecord(id);
+  record.value = res;
+  oldRecord.value = res;
+};
+const resetForm = () => {
+  record.value = toRaw(oldRecord.value);
+};
 const submitForm = async () => {
   const formRecord = {
     outputIp: record.value.outputIp,
@@ -29,26 +44,22 @@ const submitForm = async () => {
     protocol: record.value.protocol,
     note: record.value.note,
   } as NetworkRecordRequestDTO;
-  const res = await createNetworkRecord(formRecord)
-  if (res.status == 201) {
-    record.value = res.data;
-    alert('新增成功');
-  }
-  else {
-    alert('新增失敗');
-  }
+  const res = await patchNetworkRecord(props.id, formRecord)
+  record.value = res;
+  swal.fire("修改成功", "網路規則資料已經同步更新", "success")
+
 };
-const resetForm = () => {
-  // console.log('reset');
-  // console.log(oldRecord.value);
-  record.value = toRaw(oldRecord.value);
-};
+onUpdated(() => {
+  if (props.id != "") {
+    findNetworkRecordById(props.id);
+  }
+});
 </script>
 
 <template>
   <v-form id="form">
     <v-row>
-      <v-col cols=" 2">
+      <v-col cols="2">
         <v-text-field v-model="record.outputIp" label="輸出 IP"></v-text-field>
       </v-col>
       <v-col cols="1">
@@ -82,9 +93,10 @@ const resetForm = () => {
 </template>
 <style>
 #form {
+  /* margin: 0% 5%; */
   width: 100%;
-  padding: 3% 4%;
+  padding: 2%;
   background-color: #ffffff5e;
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
 }
 </style>
