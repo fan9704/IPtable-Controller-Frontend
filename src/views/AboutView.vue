@@ -10,7 +10,10 @@ const showSnackbar = (message: string) => globalStore.setMessage(message);
 
 <template>
   <v-container class="about">
-    <h1>This is an about page</h1>
-    <v-btn @click="showSnackbar('Test')">Snackbar test</v-btn>
+    <v-row>
+      <v-col cols="12">
+        <h1 id="about-title">作者 FKT</h1>
+      </v-col>
+    </v-row>
   </v-container>
 </template>

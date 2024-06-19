@@ -41,6 +41,11 @@ const routes: RouteRecordRaw[] = [
     component: async () => await import('@/views/AboutView.vue'),
   },
   {
+    path: '/iptables-command',
+    name: 'Iptables-Command',
+    component: async () => await import('@/views/network/IptablesCommandView.vue'),
+  },
+  {
     path: '/new',
     name: 'create',
     component: CreateRecordView,

@@ -4,9 +4,11 @@ import type { NetworkRecord, NetworkRecordRequestDTO } from '@/interfaces/networ
 import { ref, toRaw } from 'vue';
 import swal from 'sweetalert2';
 
-
+const wait = ref<boolean>(false);
+const outputIp = import.meta.env.VITE_HOST_IP as string;
+console.log(outputIp)
 const record = ref({
-  outputIp: '',
+  outputIp: outputIp,
   outputPort: '',
   inputIp: '',
   inputPort: '',
@@ -30,7 +32,9 @@ const submitForm = async () => {
     protocol: record.value.protocol,
     note: record.value.note,
   } as NetworkRecordRequestDTO;
+  wait.value = true;
   const res = await createNetworkRecord(formRecord)
+  wait.value = false;
   record.value = res;
   swal.fire("新增成功", "網路規則資料已經同步更新", "success")
 };
@@ -63,11 +67,11 @@ const resetForm = () => {
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-btn class="mt-4" color="success" block @click="submitForm">
+        <v-btn class="mt-4" color="success" block @click="submitForm" :disabled="wait">
           Submit
         </v-btn>
 
-        <v-btn class="mt-4" color="error" block @click="resetForm">
+        <v-btn class="mt-4" color="error" block @click="resetForm" :disabled="wait">
           Reset Form
         </v-btn>
       </v-col>

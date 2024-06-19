@@ -27,6 +27,11 @@ const items: DrawerMenuItem[] = [
     to: { name: 'Iptables' },
   },
   {
+    title: 'Iptables 內容',
+    icon: 'mdi-information',
+    to: { name: 'Iptables-Command' },
+  },
+  {
     title: '資訊',
     icon: 'mdi-information',
     to: { name: 'About' },

@@ -42,22 +42,18 @@ onMounted(() => {
   <h1 id="panel-title">Proxmox Virtual Environment 網路控制台</h1>
 
   <v-row>
-    <v-col cols="2">輸出 IP</v-col>
-    <v-col cols="1">輸出 Port</v-col>
-    <v-col cols="2">輸入 IP</v-col>
-    <v-col cols="1">輸入 Port</v-col>
-    <v-col cols="2">通訊協定</v-col>
-    <v-col cols="1">備註</v-col>
-    <v-col cols="3">操作</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">輸出 IP:Port</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">輸入 IP:Port</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">通訊協定</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="3">備註</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="3">操作</v-col>
   </v-row>
-  <v-row v-for="(record, index) in networkRecords" key:record>
-    <v-col cols="2">{{ record.outputIp }}</v-col>
-    <v-col cols="1">{{ record.outputPort }}</v-col>
-    <v-col cols="2">{{ record.inputIp }}</v-col>
-    <v-col cols="1">{{ record.inputPort }}</v-col>
-    <v-col cols="2">{{ record.protocol }}</v-col>
-    <v-col cols="1">{{ record.note }}</v-col>
-    <v-col cols="3">
+  <v-row v-for="(record, index) in networkRecords" key:record class="network-record">
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">{{ record.outputIp }}:{{ record.outputPort }}</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">{{ record.inputIp }}:{{ record.inputPort }}</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="2">{{ record.protocol }}</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="3">{{ record.note }}</v-col>
+    <v-col cols="6" xs=6 sm="6" md="4" lg="3">
       <v-btn @click="goEdit(record.id)">
         <v-icon>
           mdi-puzzle-edit
@@ -81,7 +77,14 @@ onMounted(() => {
 .v-col {
   text-align: center;
 }
+.v-theme--dark .network-record {
+  border: 1px solid white;
 
+}
+
+.v-theme--light .network-record {
+  border: 1px solid black
+}
 #panel-title {
   text-align: center;
   margin: 20px;

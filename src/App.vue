@@ -83,13 +83,8 @@ onMounted(() => {
       <v-app-bar-title tag="h1">{{ title }}</v-app-bar-title>
       <v-spacer />
       <app-bar-menu-component />
-      <v-progress-linear
-        v-show="loading"
-        :active="loading"
-        :indeterminate="progress === null"
-        :model-value="progress !== null ? progress : 0"
-        color="blue-accent-3"
-      />
+      <v-progress-linear v-show="loading" :active="loading" :indeterminate="progress === null"
+        :model-value="progress !== null ? progress : 0" color="blue-accent-3" />
     </v-app-bar>
 
     <v-main>
@@ -104,10 +99,7 @@ onMounted(() => {
       <v-progress-circular indeterminate size="64" />
     </v-overlay>
 
-    <v-snackbar
-      v-model="snackbarVisibility"
-      @update:model-value="onSnackbarChanged"
-    >
+    <v-snackbar v-model="snackbarVisibility" @update:model-value="onSnackbarChanged">
       {{ snackbarText }}
       <template #actions>
         <v-btn icon="mdi-close" @click="onSnackbarChanged" />
@@ -115,14 +107,11 @@ onMounted(() => {
     </v-snackbar>
 
     <v-footer app elevation="3">
-      <span class="mr-5">2023 &copy;</span>
+      <span class="mr-5">2024 &copy; FKT(Fan-Gang-Ting)</span>
     </v-footer>
   </v-app>
   <teleport to="head">
-    <meta
-      name="theme-color"
-      :content="theme.computedThemes.value[isDark].colors.primary"
-    />
+    <meta name="theme-color" :content="theme.computedThemes.value[isDark].colors.primary" />
     <link rel="icon" :href="logo" type="image/svg+xml" />
   </teleport>
 </template>

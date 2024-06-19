@@ -11,6 +11,7 @@ const props = defineProps({
     required: true,
   },
 });
+const wait = ref<boolean>(false);
 const record = ref({
   outputIp: '',
   outputPort: '',
@@ -28,7 +29,9 @@ const oldRecord = ref({
   note: '',
 } as NetworkRecord);
 const findNetworkRecordById = async (id: string) => {
+  wait.value = true;
   const res = await getNetworkRecord(id);
+  wait.value = false;
   record.value = res;
   oldRecord.value = res;
 };
@@ -80,11 +83,11 @@ onUpdated(() => {
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-btn class="mt-4" color="success" block @click="submitForm">
+        <v-btn class="mt-4" color="success" block @click="submitForm" :disabled="wait">
           Submit
         </v-btn>
 
-        <v-btn class="mt-4" color="error" block @click="resetForm">
+        <v-btn class="mt-4" color="error" block @click="resetForm" :disabled="wait">
           Reset Form
         </v-btn>
       </v-col>
