@@ -1,8 +1,8 @@
 import axios from "axios";
 import swal from 'sweetalert2';
-
+const baseURL = `http://${import.meta.env.VITE_HOST_IP as string}:9990/api`
 const request = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL as any,
+  baseURL: baseURL,
   // timeout: 3000,
 });
 

@@ -14,8 +14,14 @@ interface NetworkRecordRequestDTO {
   outputPort: string;
   inputIp: string;
   inputPort: string;
-  note: string
-  protocol: string
+  note: string;
+  protocol: string;
 }
 
-export { NetworkRecord, NetworkRecordRequestDTO }
+interface IptablesCommandResponseDTO {
+  response: string;
+  message: string;
+  status: boolean;
+}
+
+export { NetworkRecord, NetworkRecordRequestDTO, IptablesCommandResponseDTO }
