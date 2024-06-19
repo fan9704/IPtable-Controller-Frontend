@@ -13,17 +13,17 @@ const panelList = ref(
     {
       title: "網路規則管理",
       image: partImage,
-      link: "/part/management",
+      link: "/network",
     },
     {
-      title: "Proxmox 資源",
+      title: "Proxmox 叢集",
       image: orderImage,
-      link: "/order",
+      link: "/pve/cluster",
     },
     {
       title: "Proxmox 節點",
       image: scheduleImage,
-      link: "/order/schedule",
+      link: "/pve/nodes",
     },
     {
       title: "規則指令生成器",
