@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { getIptablesCommand } from '@/api/network';
 import type { IptablesCommandResponseDTO } from '@/interfaces/network';
 import swal from 'sweetalert2';
+import Terminal from '@/components/network/iptables/terminal.vue';
 const iptablesCommand = ref<IptablesCommandResponseDTO>();
 
 const getIptables = async () => {
@@ -37,4 +38,5 @@ onMounted(async () => {
       </v-col>
     </v-row>
   </v-container>
+  <Terminal></Terminal>
 </template>

@@ -1,5 +1,5 @@
 import request from "@/server/request";
-import type { IptablesCommandResponseDTO, NetworkRecord, NetworkRecordRequestDTO } from "@/interfaces/network";
+import type { ExecuteCommandRequestDTO, ExecuteCommandResponseDTO, IptablesCommandResponseDTO, NetworkRecord, NetworkRecordRequestDTO } from "@/interfaces/network";
 
 export function listNetworkRecords(): Promise<NetworkRecord[]> {
 
@@ -41,6 +41,27 @@ export function createNetworkRecord(data: NetworkRecordRequestDTO): Promise<Netw
 export function getIptablesCommand(): Promise<IptablesCommandResponseDTO> {
   return request({
     url: "/nat/iptables",
+    method: "get",
+  });
+}
+
+export function executeCommand(command: ExecuteCommandRequestDTO): Promise<ExecuteCommandResponseDTO> {
+  return request({
+    url: "/command",
+    method: "post",
+    data: command
+  })
+}
+
+export function refreshNetworkRecordById(id: string): Promise<NetworkRecord> {
+  return request({
+    url: `/nat/refresh/record/${id}`,
+    method: "get",
+  });
+}
+export function refreshAllNetworkRecord(): Promise<NetworkRecord[]> {
+  return request({
+    url: `/nat/refresh/record`,
     method: "get",
   });
 }
