@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build-IPC-Master
+    name: Build-IPC-Client-Frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
           path: ./dist
 
   deploy:
-    name: Deploy-IPC-Master
+    name: Deploy-IPC-Client-Frontend
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
