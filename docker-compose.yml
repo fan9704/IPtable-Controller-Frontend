@@ -1,13 +1,15 @@
 version: '3.3'
 services:
   frontend:
-    container_name: IPC-Frontend
+    container_name: IPC-Slave-Frontend
     image: fan9704/iptable_controller_frontend
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
       args:
         - VITE_APP_TITLE=IPtable-Controller-Frontend
-        - VITE_HOST_IP=140.96.83.158
+        - VITE_HOST_IP=${VITE_HOST_IP}
     ports:
       - "80:80"
