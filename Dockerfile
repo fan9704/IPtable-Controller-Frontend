@@ -10,9 +10,6 @@ ENV VITE_HOST_IP=$VITE_HOST_IP
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-COPY package*.json ./
-# 刪除 node_modules 目錄和 package-lock.json 文件
-RUN rm -rf node_modules package-lock.json
 COPY . .
 
 RUN pnpm install
