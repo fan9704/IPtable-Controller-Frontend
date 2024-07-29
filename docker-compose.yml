@@ -3,8 +3,8 @@ services:
   frontend:
     container_name: IPC-Slave-Frontend
     image: fan9704/iptable_controller_frontend
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     build:
       context: .
       dockerfile: Dockerfile
