@@ -20,7 +20,12 @@ export default defineConfig(({ command, mode }): UserConfig => {
     // https://vitejs.dev/config/shared-options.html#base
     base: './',
     // https://vitejs.dev/config/shared-options.html#define
-    define: { 'process.env': {} },
+    define: {
+      VITE_HOST_IP:process.env.VITE_HOST_IP,
+      VITE_APP_TITLE:process.env.VITE_APP_TITLE,
+      'process.env': {
+
+    } },
     plugins: [
       // Vue3
       vue({
